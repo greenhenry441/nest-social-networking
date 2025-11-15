@@ -1,66 +1,77 @@
+/* eslint-disable */
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
-import { collection, orderBy, query, onSnapshot } from 'firebase/firestore';
 import Post from '@/app/components/Post';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function PostsPage() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const { currentUser, loading: authLoading } = useAuth();
   const [posts, setPosts] = useState<any[]>([]);
-  const [dataLoading, setDataLoading] = useState(true);
+  const [loadingPosts, setLoadingPosts] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
+    const fetchPosts = async () => {
+      if (authLoading) return;
 
-  useEffect(() => {
-    if (user) {
-      const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setPosts(postsData);
-        setDataLoading(false);
-      });
-      return () => unsubscribe();
-    }
-  }, [user]);
+      setLoadingPosts(true);
+      setError(null);
+      try {
+        const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const fetchedPosts = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          timestamp: doc.data().timestamp?.toDate().toISOString(),
+        }));
+        setPosts(fetchedPosts);
+      } catch (e: any) {
+        console.error("Error fetching posts:", e);
+        setError("Failed to load posts. Please check your connection or try again later.");
+      } finally {
+        setLoadingPosts(false);
+      }
+    };
 
-  if (loading || dataLoading) {
+    fetchPosts();
+  }, [authLoading]);
+
+  if (authLoading || loadingPosts) {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-            <div className="text-center">
-                <h1 className="text-4xl font-bold text-purple-400">Nest</h1>
-                <p className="mt-2 text-lg text-gray-300">Loading posts...</p>
-            </div>
-        </div>
+      <div className="bg-background text-foreground min-h-screen p-6 flex justify-center items-center">
+        <p className="text-xl">Loading posts...</p>
+      </div>
     );
   }
 
-  if (!user) {
-      return null;
-  }
-
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <div className="max-w-2xl mx-auto py-12 px-4">
-        <h1 className="text-5xl font-extrabold mb-10 text-center text-purple-400 tracking-tight">Community Feed</h1>
-        <div className="space-y-8">
-          {posts.length > 0 ? (
-            posts.map(post => (
-              <Post key={post.id} post={post} />
-            ))
-          ) : (
-            <div className="text-center text-gray-400 bg-gray-800 p-8 rounded-2xl">
-              <p className="text-xl">No posts yet. Be the first to share something! 🎉</p>
-            </div>
-          )}
-        </div>
+    <div className="bg-background text-foreground min-h-screen p-6">
+      <div className="max-w-2xl mx-auto space-y-6">
+        <h1 className="text-5xl font-extrabold mb-8 text-center text-primary tracking-tight">Community Feed</h1>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong className="font-bold">Error:</strong>
+            <span className="block sm:inline"> {error}</span>
+          </div>
+        )}
+
+        {posts.length === 0 && !error ? (
+          <p className="text-center text-xl text-muted-foreground">No posts yet. Be the first to share!</p>
+        ) : (
+          posts.map((post) => (
+            <Post
+              key={post.id}
+              id={post.id}
+              authorId={post.authorId}
+              content={post.content}
+              timestamp={post.timestamp}
+            />
+          ))
+        )}
       </div>
     </div>
   );

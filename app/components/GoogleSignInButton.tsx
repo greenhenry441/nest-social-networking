@@ -20,7 +20,7 @@ export default function GoogleSignInButton() {
   return (
     <button
       onClick={handleSignIn}
-      className="w-full py-2 font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      className="bg-accent text-accent-foreground py-2 px-4 rounded-lg font-semibold shadow-lg hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
     >
       Sign In with Google
     </button>
