@@ -34,6 +34,10 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 
 ## Changelog
 
+### Version 1.0.4
+
+*   **Vercel Build Fix:** Resolved a build error on Vercel by wrapping the `ResetPasswordForm` component in a `<Suspense>` boundary on the `/reset-password` page. This fixes an issue where `useSearchParams` was being used outside of a Suspense boundary, causing the build to fail.
+
 ### Version 1.0.3
 *   **Announcement Banner Update:** Updated the announcement banner to display the correct version number (1.0.2).
 
