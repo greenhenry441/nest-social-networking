@@ -7,6 +7,7 @@ if (!admin.apps.length) {
   // without needing to manage service account key files or environment variables.
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
+    projectId: 'nest-social-networking',
   });
 }
 

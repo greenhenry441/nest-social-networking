@@ -2,14 +2,14 @@ import { initializeApp, getApp, type FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Vercel environment variables are used here.
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBnxqay3G6Rzve3mfvJ0aZjKzcnSDRnc30",
+  authDomain: "nest-social-networking.firebaseapp.com",
+  projectId: "nest-social-networking",
+  storageBucket: "nest-social-networking.firebasestorage.app",
+  messagingSenderId: "905972619124",
+  appId: "1:905972619124:web:dbd2102e8ed46eef617e21",
+  measurementId: "G-93J6FN9TT3"
 };
 
 // Initialize Firebase
