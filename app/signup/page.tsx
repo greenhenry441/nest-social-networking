@@ -1,101 +1,107 @@
 'use client'
 
-import { useActionState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { signUp } from '@/app/actions';
+import { useRouter } from 'next/navigation';
+import { signUp, createSession } from '@/app/actions';
+import { signInWithCustomToken } from 'firebase/auth';
+import { auth } from '@/lib/firebase/client';
 import GoogleSignInButton from '@/app/components/GoogleSignInButton';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function SignupPage() {
-  const [formState, action] = useActionState(signUp, { nestEmail: null, errors: {} });
+  const [formState, action] = useActionState(signUp, { customToken: null, errors: {} });
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  if (formState.nestEmail) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <div className="glassmorphism max-w-md w-full mx-auto p-8">
-          <h1 className="text-4xl font-extrabold text-center mb-6 text-foreground">Welcome to Nest!</h1>
-          <p className="text-center text-foreground/80 mb-8">Your account has been created.</p>
-          <div className="bg-input p-4 rounded-lg text-center">
-            <p className="text-sm font-bold text-foreground/80">Your New Nest Email</p>
-            <p className="text-lg font-medium text-foreground">{formState.nestEmail}</p>
-          </div>
-          <Link href="/login" className="btn block w-full mt-8 text-center">
-              Continue to Login
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    async function handleSignIn() {
+      if (formState.customToken) {
+        try {
+          const userCredential = await signInWithCustomToken(auth, formState.customToken);
+          const idToken = await userCredential.user.getIdToken();
+          await createSession(idToken);
+          router.push('/');
+        } catch (error) {
+          console.error("Error signing in with custom token:", error);
+        }
+      }
+    }
+    handleSignIn();
+  }, [formState.customToken, router]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="glassmorphism max-w-md w-full mx-auto p-8">
-        <h1 className="text-4xl font-extrabold text-center mb-6 text-foreground">Create Your Account</h1>
-        <p className="text-center text-foreground/80 mb-8">Join Nest and connect with friends.</p>
-
-        <form action={action}>
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="username" className="text-sm font-bold text-foreground/80 block mb-2">Username</label>
-              <input
-                id="username"
-                type="text"
-                name="username"
-                required
-                className="w-full p-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
-                placeholder="Your unique username"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="text-sm font-bold text-foreground/80 block mb-2">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                required
-                className="w-full p-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
-                placeholder="you@example.com"
-              />
-               {formState.errors.email && (
-                <p className="mt-2 text-sm text-destructive">{formState.errors.email.join(', ')}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="password_signup" className="text-sm font-bold text-foreground/80 block mb-2">Password</label>
-              <input
-                id="password_signup"
-                type="password"
-                name="password"
-                required
-                className="w-full p-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
-                placeholder="••••••••"
-              />
-              {formState.errors.password && (
-                <p className="mt-2 text-sm text-destructive">{formState.errors.password.join(', ')}</p>
-              )}
-            </div>
-          </div>
-
-          {formState.errors._form && (
-            <div className="mt-4 p-3 bg-destructive/20 border border-destructive text-destructive rounded-lg">
-              {formState.errors._form.join(', ')}
-            </div>
+    <div className="min-h-screen bg-[#FDF8F2] flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+        <h1 className="text-4xl font-bold text-center mb-8">Sign Up</h1>
+        <form action={action} className="space-y-4">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          {formState.errors.email && (
+            <p className="text-sm text-red-500">{formState.errors.email.join(', ')}</p>
           )}
-
-          <button
-            type="submit"
-            className="btn w-full mt-8"
-          >
+          <div className="relative">
+            <input
+              id="password_signup"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          {formState.errors.password && (
+            <p className="text-sm text-red-500">{formState.errors.password.join(', ')}</p>
+          )}
+           <div className="relative">
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Confirm password"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          {formState.errors.confirmPassword && (
+            <p className="text-sm text-red-500">{formState.errors.confirmPassword.join(', ')}</p>
+          )}
+          {formState.error && (
+            <p className="text-sm text-red-500">{formState.error}</p>
+          )}
+          <p className="text-sm text-center">
+            Already have an account?{' '}
+            <Link href="/login" className="font-semibold text-blue-600 hover:underline">
+              Log In
+            </Link>
+          </p>
+          <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
             Sign Up
           </button>
         </form>
-
-        <div className="mt-6 text-center">
+        <div className="mt-4">
           <GoogleSignInButton />
         </div>
-
-        <p className="mt-8 text-center text-sm text-foreground/80">
-          Already have an account? <Link href="/login" className="font-medium text-primary hover:underline">Log in</Link>
-        </p>
       </div>
     </div>
   );

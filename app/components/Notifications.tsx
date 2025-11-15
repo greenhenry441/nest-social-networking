@@ -28,18 +28,12 @@ interface UserData {
 }
 
 function NotificationItem({ notif }: { notif: Notification }) {
-  const [timeString, setTimeString] = useState('');
-
-  useEffect(() => {
-    setTimeString(notif.createdAt.toLocaleTimeString());
-  }, [notif.createdAt]);
+  const timeString = notif.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <Link key={notif.id} href={notif.link}>
-      <a className={`block p-4 hover:bg-secondary ${!notif.read ? 'font-bold' : ''}`}>
-        <p className="text-sm">{notif.message}</p>
-        <p className="text-xs text-muted-foreground">{timeString}</p>
-      </a>
+    <Link href={notif.link} className={`block p-4 hover:bg-secondary ${!notif.read ? 'font-bold' : ''}`}>
+      <p className="text-sm">{notif.message}</p>
+      <p className="text-xs text-muted-foreground">{timeString}</p>
     </Link>
   );
 }
@@ -48,18 +42,16 @@ export default function Notifications() {
   const { currentUser } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [hasUnread, setHasUnread] = useState(false);
 
   useEffect(() => {
     if (currentUser?.uid) {
       const q = query(
         collection(db, 'notifications'),
-        where('userId', '==', currentUser.uid),
+        where('userId', '==', currentUser.uid)
       );
 
       const unsubscribe = onSnapshot(q, async (snapshot) => {
         const newNotifications: Notification[] = [];
-        let unread = false;
 
         for (const docChange of snapshot.docChanges()) {
           if (docChange.type === 'added') {
@@ -80,20 +72,19 @@ export default function Notifications() {
             } else {
                 // Handle other types of notifications here
             }
-            
-            if (!notifData.read) {
-              unread = true;
-            }
           }
         }
 
-        setNotifications(prev => [...newNotifications, ...prev].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()));
-        setHasUnread(unread || notifications.some(n => !n.read));
+        if (newNotifications.length > 0) {
+            setNotifications(prev => [...newNotifications, ...prev].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()));
+        }
       });
 
       return () => unsubscribe();
     }
   }, [currentUser?.uid]);
+
+  const hasUnread = notifications.some(n => !n.read);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);

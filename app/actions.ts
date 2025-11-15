@@ -128,14 +128,14 @@ export async function signUp(prevState: any, formData: FormData) {
             role: 'parent',
             createdAt: new Date(),
         });
+        const customToken = await auth.createCustomToken(userCredential.uid);
+        return { customToken };
     } catch (e: any) {
         if (e.code === 'auth/email-already-exists') {
             return { error: 'This email is already in use.' };
         }
         return { error: e.message };
     }
-
-    return { success: true };
 }
 
 export async function signUpChild(prevState: any, formData: FormData) {
@@ -166,14 +166,14 @@ export async function signUpChild(prevState: any, formData: FormData) {
             role: 'child',
             createdAt: new Date(),
         });
+        const customToken = await auth.createCustomToken(userCredential.uid);
+        return { customToken };
     } catch (e: any) {
         if (e.code === 'auth/email-already-exists') {
             return { error: 'This email is already in use.' };
         }
         return { error: e.message };
     }
-
-    return { success: true };
 }
 
 export async function searchUserByNestEmail(nestEmail: string) {

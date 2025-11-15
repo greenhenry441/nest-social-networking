@@ -10,14 +10,15 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 
 *   **"Liquid Glass" Theme:** The entire application has been redesigned with a modern "Liquid Glass" aesthetic. This includes:
     *   **Glassmorphism:** A frosted-glass effect applied to key UI elements like the navigation bar and forms, creating a sense of depth and transparency.
-    *   **Vibrant Color Palette:** A new, vibrant color palette has been introduced, with a focus on modern and energetic hues.
+    *   **Vibrant Color Palette:** The application's color palette has been updated to a cool and modern blueish-green gradient. This new color scheme is applied to the background and reflected in the glassmorphism effect, creating a cohesive and visually appealing design.
     *   **Updated Button Styles:** All buttons have been updated with a new, consistent style that includes a subtle shadow and a "glow" effect on hover.
 *   **Typography:** The Inter font is used throughout the application, with a focus on clear and readable text.
 *   **Layout:** The application features a clean and balanced layout with a maximum width of 7xl, ensuring a comfortable viewing experience on all screen sizes.
 
 ### Core Features
 
-*   **Authentication:** Users can sign up and log in to their accounts using Firebase Authentication. The application provides a seamless and secure authentication flow with a consistent "Liquid Glass" design.
+*   **Authentication:** Users can sign up and log in to their accounts using Firebase Authentication. The application provides a seamless and secure authentication flow. After registration, users are automatically logged in, creating a smooth onboarding experience. The UI for authentication pages follows the consistent "Liquid Glass" design.
+*   **Secure Password Reset:** A secure and user-friendly password reset process. Users can request a password reset from the login page, and they will receive an email with a link to a dedicated page where they can securely update their password.
 *   **Community Feed:** The `/posts` page displays a real-time feed of all user-generated posts. If no posts have been created, a "No posts yet" message is displayed.
 *   **Create Posts:** Logged-in users can create new posts through the `/posts/create` and `/posts/new` pages. The application uses Server Actions to handle post creation securely and efficiently.
 *   **User Connections & Notifications:** The platform now includes a comprehensive system for users to connect with one another.
@@ -27,80 +28,32 @@ Nest Social Networking is a modern, safe social media platform designed for teen
     *   **Notifications:** When a connection request is sent, the recipient receives a notification, alerting them to the new request.
 *   **Navigation:** A responsive and intuitive navigation bar with a glassmorphism effect allows users to easily navigate between the home page, the community feed, and other features.
 *   **Real-time Chat:** A fully functional, real-time chat feature allows users to communicate with each other instantly. The chat is built with Cloud Firestore and a Next.js Server Action, ensuring a fast, secure, and scalable experience.
-*   **Announcement Banner:** A dismissible banner with a glassmorphism effect is displayed on all pages to inform users about the application's alpha status.
+*   **Announcement Banner:** A dismissible banner announces the application's full 1.0.2 release and includes a button linking to the GitHub repository.
 *   **Child Signup with Age Verification:** The child signup process now includes an age selection dropdown. This allows for age-appropriate controls and content filtering, with temporary settings applied until a parent finalizes the account setup.
 *   **Role-Based User System:** The application now distinguishes between `parent` and `child` user roles. This is stored in the database upon registration and will be used to implement role-specific features and permissions.
 
 ## Changelog
 
-### Version Alpha (1.2.8) - Server Stability & Security Enhancement
+### Version 1.0.3
+*   **Announcement Banner Update:** Updated the announcement banner to display the correct version number (1.0.2).
 
-*   **Critical Bug Fix:** Resolved a server-side crash caused by an improperly configured Firebase Admin SDK. The application now uses Application Default Credentials (ADC) for secure and automatic authentication in the managed Firebase Studio environment, removing the need for manual service account key management.
+### Version 1.0.2 - Seamless Authentication
 
-### Version Alpha (1.2.7) - Bug Fixes & Stability Improvements
+*   **Authentication Flow Improvement:** Reworked the sign-up process for both parents and children. Users are now automatically logged in after creating an account, creating a seamless and uninterrupted user experience. This was achieved by using custom Firebase authentication tokens and session cookies.
 
-*   **Bug Fixes & Improvements:**
-    *   Fixed a critical bug on the "Sign up as a Child" page where the page would close or redirect immediately after opening. The issue was resolved by refining the form state logic to prevent premature redirects and ensure the page remains stable until the user successfully completes the form.
+### Version 1.0.1
 
-### Version Alpha (1.2.6) - User Connections & Search
+*   **Announcement Banner Update:** Updated the text and layout of the announcement banner for clarity, placing the GitHub link button below the announcement text.
 
-*   **New Features:**
-    *   Implemented a user connection system. Users can now search for other users by their `nestEmail` on the `/connect` page and send them connection requests.
-    *   Added a "Connection Requests" section to the `/connect` page, allowing users to accept or reject incoming requests.
-    *   Integrated a notification system that alerts users when they receive a new connection request.
-*   **Bug Fixes & Improvements:**
-    *   Corrected a critical error where the application was attempting to use a non-existent function (`searchUserByNestId`) for user search. It now correctly uses `searchUserByNestEmail`.
+### Version 1.0.0 - Full Release
 
-### Version Alpha (1.2.5)
+*   **Announcement Banner Update:** Updated the announcement banner to announce the end of alpha/beta testing and the official 1.0.0 release. The banner now includes a message and a button that links to the project's GitHub repository.
 
-*   **UI Improvements:**
-    *   Replaced all blue, underlined text links with modern, styled buttons that feature smooth transitions and a subtle "glow" effect on hover. This creates a more consistent and polished user experience across the application.
+### Pre-release Versions (Alpha)
 
-### Version Alpha (1.2.4)
-
-*   **Bug Fixes & Improvements:**
-    *   Resolved the "client is offline" error by re-initializing Firebase services and updating the Firestore security rules to allow read/write access for authenticated users. This ensures the application can connect to the database.
-    *   Resolved an "insufficient permission" error with the Firebase Admin SDK by removing conflicting initialization files and correctly configuring the server-side Admin SDK with the project's service account credentials.
-
-### Version Alpha (1.2.3)
-
-*   **UI Improvements:**
-    *   Improved the glassmorphism effect with a semi-transparent background and a vibrant gradient, enhancing the visual appeal and modern aesthetic of the application.
-
-### Version Alpha (1.2.2)
-
-*   **Bug Fixes & Improvements:**
-    *   Fixed the authentication flow by implementing a session-based authentication system. This resolves issues with post creation and chat functionality.
-    *   The announcement banner has been updated with new text and a "Close Announcement" button.
-    *   The chat functionality has been fixed to correctly identify the current user, enabling real-time conversations.
-
-### Version Alpha (1.2.1)
-
-*   **Bug Fixes & Improvements:**
-    *   Fixed a critical bug that prevented users from logging in. The issue was caused by unescaped apostrophes in JSX, which has now been corrected across all affected components (`/login`, `/signup/child`, etc.).
-    *   Performed a full code quality check and resolved all outstanding ESLint errors and warnings throughout the application (`/app` and `/app/components`). This improves code consistency and maintainability.
-
-### Version Alpha (1.2.0) - "Liquid Glass" UI Overhaul
-
-*   **New Features:**
-    *   Implemented a new "Liquid Glass" design across the entire application.
-    *   Updated the color palette, button styles, and form inputs to a modern, vibrant aesthetic.
-    *   Applied a `glassmorphism` effect to the `Navbar`, `AnnouncementBanner`, and all authentication pages.
-    *   Redesigned the home page with the new "Liquid Glass" theme.
-    *   Added a new "About" page.
-
-### Version Alpha (1.1.1)
-
-*   **New Features:**
-    *   Added an announcement banner to all pages.
-    *   Added age selection to the child signup process for temporary controls.
-    *   Implemented a role-based user system (`parent` and `child`).
-*   **Bug Fixes & Improvements:**
-    *   Fixed all known TypeScript errors.
-    *   Resolved issues with post creation and viewing.
-    *   Fixed real-time chat functionality.
-    *   Improved UI by replacing all blue underlined links with properly styled buttons.
-    *   Updated the landing page with a new design.
+*   **UI Refresh (Alpha 1.3.0):** Updated the application's color scheme with a new blueish-green gradient, giving the "Liquid Glass" theme a fresh and modern look.
+*   **Secure Password Reset (Alpha 1.2.9):** Implemented a secure password reset flow. Users can now request a password reset email, which will direct them to a dedicated page within the application to set a new password.
+*   **Server Stability & Security Enhancement (Alpha 1.2.8):** Resolved a server-side crash caused by an improperly configured Firebase Admin SDK. The application now uses Application Default Credentials (ADC) for secure and automatic authentication in the managed Firebase Studio environment, removing the need for manual service account key management.
 
 ## Future Development Plan
 

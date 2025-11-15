@@ -11,6 +11,10 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "authorizedDomains": [
+      "nest-social-networking.firebaseapp.com",
+      "localhost"
     ]
   },
   "functions": {

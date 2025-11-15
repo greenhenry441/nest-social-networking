@@ -1,21 +1,33 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { signUpChild } from '@/app/actions';
+import { signUpChild, createSession } from '@/app/actions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { signInWithCustomToken } from 'firebase/auth';
+import { auth } from '@/lib/firebase/client';
 
-const initialState = { error: null, success: false };
+const initialState = { customToken: null, error: null };
 
 export default function ChildSignUpPage() {
   const [state, formAction] = useFormState(signUpChild, initialState);
   const router = useRouter();
 
   useEffect(() => {
-    if (state.success) {
-      router.push('/login'); // Redirect to login page upon successful signup
+    async function handleSignIn() {
+      if (state.customToken) {
+        try {
+          const userCredential = await signInWithCustomToken(auth, state.customToken);
+          const idToken = await userCredential.user.getIdToken();
+          await createSession(idToken);
+          router.push('/');
+        } catch (error) {
+          console.error("Error signing in with custom token:", error);
+        }
+      }
     }
-  }, [state.success, router]);
+    handleSignIn();
+  }, [state.customToken, router]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center p-4">
