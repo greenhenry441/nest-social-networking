@@ -7,13 +7,11 @@ import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/aut
 import { auth } from '@/lib/firebase/client';
 import { createSession } from '@/app/actions';
 import GoogleSignInButton from '@/app/components/GoogleSignInButton';
-import { Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const router = useRouter();
 
@@ -47,47 +45,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F2] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-sm">
-        <h1 className="text-4xl font-bold text-center mb-8">Log In</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
+      <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold text-center mb-6">Welcome Back</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <div className="relative">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              type="button"
-              className="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <div className="text-sm text-right">
+            <button type="button" onClick={handlePasswordReset} className="font-semibold text-blue-600 hover:underline">
+              Forgot Password?
             </button>
-          </div>
-          <div className="text-sm text-center">
-            <p className="mb-2">
-              Don&apos;t have an account?{' '}
-              <Link href="/signup" className="font-semibold text-blue-600 hover:underline">
-                Sign Up
-              </Link>
-            </p>
-            <p>
-              <button type="button" onClick={handlePasswordReset} className="font-semibold text-blue-600 hover:underline">
-                Forgot Password?
-              </button>
-            </p>
           </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           {resetSent && <p className="text-green-500 text-sm text-center">Password reset email sent!</p>}
@@ -95,12 +76,21 @@ export default function LoginPage() {
             type="submit"
             className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Sign In
+            Log In
           </button>
         </form>
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">or</p>
+        </div>
         <div className="mt-4">
           <GoogleSignInButton />
         </div>
+        <p className="text-sm text-center text-gray-500 mt-8">
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" className="font-semibold text-blue-600 hover:underline">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </div>
   );

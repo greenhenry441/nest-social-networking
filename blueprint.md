@@ -8,6 +8,7 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 
 ### Aesthetics & Design
 
+*   **Authentication UI Redesign:** The login and signup pages have been redesigned with a clean, modern aesthetic. The new design features a centered, white rounded block for the forms, providing a more intuitive and visually appealing user experience.
 *   **"Liquid Glass" Theme:** The entire application has been redesigned with a modern "Liquid Glass" aesthetic. This includes:
     *   **Glassmorphism:** A frosted-glass effect applied to key UI elements like the navigation bar and forms, creating a sense of depth and transparency.
     *   **Vibrant Color Palette:** The application's color palette has been updated to a cool and modern blueish-green gradient. This new color scheme is applied to the background and reflected in the glassmorphism effect, creating a cohesive and visually appealing design.
@@ -33,6 +34,10 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 *   **Role-Based User System:** The application now distinguishes between `parent` and `child` user roles. This is stored in the database upon registration and will be used to implement role-specific features and permissions.
 
 ## Changelog
+
+### Version 1.0.7
+
+*   **Authentication UI Redesign:** Redesigned the login and signup pages with a clean, modern aesthetic. The new design features a centered, white rounded block for the forms, providing a more intuitive and visually appealing user experience.
 
 ### Version 1.0.6
 

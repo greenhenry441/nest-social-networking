@@ -1,69 +1,47 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { signUpChild, createSession } from '@/app/actions';
+import { signUp } from '@/app/actions';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithCustomToken } from 'firebase/auth';
-import { auth } from '@/lib/firebase/client';
+import Link from 'next/link';
 
-const initialState = { customToken: null, error: null };
+const initialState = { errors: null, error: null };
 
 export default function ChildSignUpPage() {
-  const [state, formAction] = useFormState(signUpChild, initialState);
+  const [state, formAction] = useFormState(signUp, initialState);
   const router = useRouter();
 
   useEffect(() => {
-    async function handleSignIn() {
-      if (state.customToken) {
-        try {
-          const userCredential = await signInWithCustomToken(auth, state.customToken);
-          const idToken = await userCredential.user.getIdToken();
-          await createSession(idToken);
-          router.push('/');
-        } catch (error) {
-          console.error("Error signing in with custom token:", error);
-        }
-      }
+    if (state.error === null && state.errors === undefined) { // Successful signup
+      router.push('/login'); // Redirect on success
     }
-    handleSignIn();
-  }, [state.customToken, router]);
+  }, [state, router]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center p-4">
-      <div className="glassmorphism w-full max-w-md p-8">
-        <h1 className="text-4xl font-bold mb-8 text-center text-foreground">Create Your Child&apos;s Nest</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
+      <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold text-center mb-6">Create Your Child Account</h1>
         <form action={formAction}>
-          <div className="mb-6">
-            <label className="block text-foreground/80 text-sm font-bold mb-2" htmlFor="username">
-              Child&apos;s Username
+          <input type="hidden" name="isParent" value="false" />
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              Your Email
             </label>
             <input
-              className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary transition duration-300"
-              id="username"
-              type="text"
-              name="username"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-foreground/80 text-sm font-bold mb-2" htmlFor="email">
-              Child&apos;s Email
-            </label>
-            <input
-              className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary transition duration-300"
+              className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               id="email"
               type="email"
               name="email"
               required
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-foreground/80 text-sm font-bold mb-2" htmlFor="password">
-              Child&apos;s Password
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Password
             </label>
             <input
-              className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary transition duration-300"
+              className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               id="password"
               type="password"
               name="password"
@@ -71,38 +49,54 @@ export default function ChildSignUpPage() {
             />
           </div>
           <div className="mb-6">
-            <label className="block text-foreground/80 text-sm font-bold mb-2" htmlFor="age">
-              Child&apos;s Age
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+            <input
+              className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
+              Your Age
             </label>
             <select
-              className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary transition duration-300"
+              className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               id="age"
               name="age"
               required
             >
-              <option value="">Select Age</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
+              <option value="">Select your age</option>
+              {Array.from({ length: 11 }, (_, i) => i + 8).map(age => (
+                <option key={age} value={age}>{age}</option>
+              ))}
             </select>
           </div>
-          {state?.error && <p className="text-destructive text-sm italic mb-4">{state.error}</p>}
+          {state?.errors?.confirmPassword && (
+            <p className="text-red-500 text-sm italic mb-4">{state.errors.confirmPassword.join(', ')}</p>
+          )}
+          {state?.error && (
+            <p className="text-red-500 text-sm italic mb-4">{state.error}</p>
+          )}
           <div className="flex items-center justify-center">
             <button
-              className="btn w-full"
+              className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
               type="submit"
             >
-              Create Nest
+              Create Account
             </button>
           </div>
         </form>
+        <p className="text-sm text-center text-gray-500 mt-8">
+          Already have an account?{' '}
+          <Link href="/login" className="font-semibold text-blue-600 hover:underline">
+            Log In
+          </Link>
+        </p>
       </div>
     </div>
   );
