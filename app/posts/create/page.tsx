@@ -29,7 +29,7 @@ export default function CreatePostPage() {
                 setStatusMessage("Post submitted successfully!");
                 setPostContent('');
             } else {
-                setStatusMessage(`Error submitting post: ${result.error}`);
+                setStatusMessage(`Error submitting post: ${result.errors?.join(', ')}`);
             }
         } catch (error) {
             console.error("Error creating post:", error);

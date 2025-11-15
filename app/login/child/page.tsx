@@ -11,9 +11,14 @@ export default function ChildLoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const result = await logIn(formData);
+    const result = await logIn(null, formData);
     if (result.errors) {
-      setError(result.errors._form.join(', '));
+        if ('_form' in result.errors) {
+            setError((result.errors as { _form: string[] })._form.join(', '));
+        } else {
+            const fieldErrors = Object.values(result.errors).flat();
+            setError(fieldErrors.join(', '));
+        }
     } else {
       router.push('/posts');
     }

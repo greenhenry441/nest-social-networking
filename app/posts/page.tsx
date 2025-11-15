@@ -20,12 +20,11 @@ export default function PostsPage() {
       setLoadingPosts(true);
       setError(null);
       try {
-        const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+        const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
         const fetchedPosts = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-          timestamp: doc.data().timestamp?.toDate().toISOString(),
         }));
         setPosts(fetchedPosts);
       } catch (e: any) {
@@ -63,13 +62,7 @@ export default function PostsPage() {
           <p className="text-center text-xl text-muted-foreground">No posts yet. Be the first to share!</p>
         ) : (
           posts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              authorId={post.authorId}
-              content={post.content}
-              timestamp={post.timestamp}
-            />
+            <Post key={post.id} post={post} />
           ))
         )}
       </div>

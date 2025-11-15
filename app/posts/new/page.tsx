@@ -38,7 +38,7 @@ export default function NewPostPage() {
         setStatusMessage('Post submitted successfully!');
         setPostContent(''); // Clear the textarea
       } else {
-        setStatusMessage(`Error submitting post: ${result.error}`);
+        setStatusMessage(`Error submitting post: ${result.errors?.join(', ')}`);
       }
     } catch (error: any) {
       setStatusMessage(`An unexpected error occurred: ${error.message}`);
@@ -78,7 +78,7 @@ export default function NewPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen bg-background flex flex-col justify-center items-.center p-4">
       <div className="max-w-xl w-full bg-card p-8 shadow-xl rounded-2xl border border-border">
         <h1 className="text-4xl font-bold mb-8 text-center text-primary">Create a New Post</h1>
         <form onSubmit={handleSubmit} className="space-y-6">

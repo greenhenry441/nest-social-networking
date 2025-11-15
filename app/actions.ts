@@ -32,32 +32,6 @@ const loginSchema = z.object({
     password: z.string().min(1, "Password cannot be empty"),
 });
 
-export async function savePost(prevState: any, { formData, authorId, authorName }: { formData: FormData, authorId: string, authorName: string }) {
-  const validatedFields = postSchema.safeParse({
-    content: formData.get('content'),
-  })
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors.content,
-    }
-  }
-
-  try {
-    await db.collection('posts').add({
-        content: validatedFields.data.content,
-        authorId: authorId,
-        authorName: authorName,
-        createdAt: new Date(),
-      });
-    revalidatePath('/posts')
-  } catch (e) {
-    return { errors: ['Failed to save post.'] }
-  }
-
-  redirect('/posts');
-}
-
 export async function createPost(content: string, authorId: string) {
   const validatedFields = postSchema.safeParse({ content });
 
@@ -68,7 +42,10 @@ export async function createPost(content: string, authorId: string) {
   try {
     // Assuming you have a users collection where you can get the author's name
     const userDoc = await db.collection('users').doc(authorId).get();
-    const authorName = userDoc.exists ? userDoc.data()?.username : 'Anonymous'; // Fallback to 'Anonymous'
+    if (!userDoc.exists) {
+        return { errors: ["User not found."] };
+    }
+    const authorName = userDoc.data()?.username || 'Anonymous'; // Fallback to 'Anonymous'
 
     await db.collection('posts').add({
       content: validatedFields.data.content,

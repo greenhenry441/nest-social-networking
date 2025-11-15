@@ -2,11 +2,29 @@
 
 import { useActionState } from 'react';
 import Link from 'next/link';
-import { signup } from '@/app/actions';
+import { signUp } from '@/app/actions';
 import GoogleSignInButton from '@/app/components/GoogleSignInButton';
 
 export default function SignupPage() {
-  const [formState, action] = useActionState(signup, { errors: {} });
+  const [formState, action] = useActionState(signUp, { nestEmail: null, errors: {} });
+
+  if (formState.nestEmail) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-md w-full mx-auto p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl bg-white dark:bg-gray-800">
+          <h1 className="text-4xl font-extrabold text-center mb-6 text-gray-800 dark:text-white">Welcome to Nest!</h1>
+          <p className="text-center text-gray-600 dark:text-gray-300 mb-8">Your account has been created.</p>
+          <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center">
+            <p className="text-sm font-bold text-gray-600 dark:text-gray-300">Your New Nest Email</p>
+            <p className="text-lg font-medium text-gray-800 dark:text-white">{formState.nestEmail}</p>
+          </div>
+          <Link href="/login" className="block w-full mt-8 p-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 text-center">
+              Continue to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">

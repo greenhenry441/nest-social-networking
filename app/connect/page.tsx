@@ -7,7 +7,7 @@ import { useAuth } from '@/app/context/AuthContext'; // Import useAuth hook
 export default function ConnectPage() {
   const [nestIdInput, setNestIdInput] = useState('');
   const [searchResults, setSearchResults] = useState<
-    { id: string; name: string; nestId: string } | null
+    { id: string; username: string; nestId: string } | null
   >(null);
   const [statusMessage, setStatusMessage] = useState('');
 
@@ -29,7 +29,7 @@ export default function ConnectPage() {
     try {
       const user = await searchUserByNestId(nestIdInput);
       if (user) {
-        setSearchResults(user);
+        setSearchResults(user as { id: string; username: string; nestId: string; });
         setStatusMessage('');
       } else {
         setStatusMessage('User not found.');
@@ -52,14 +52,14 @@ export default function ConnectPage() {
       return;
     }
 
-    setStatusMessage(`Sending connection request to ${searchResults.name}...`);
+    setStatusMessage(`Sending connection request to ${searchResults.username}...`);
     try {
       const result = await sendConnectionRequest(currentUser.uid, searchResults.id);
       // Assuming result.success is a boolean and result.message is a string
       if (result && result.success) {
-        setStatusMessage(`Connection request sent to ${searchResults.name}!`);
+        setStatusMessage(`Connection request sent to ${searchResults.username}!`);
       } else {
-        setStatusMessage(result && result.message ? result.message : 'Failed to send connection request.');
+        setStatusMessage(result && (result as any).message ? (result as any).message : 'Failed to send connection request.');
       }
     } catch (error) {
       console.error('Error sending connection request:', error);
@@ -125,7 +125,7 @@ export default function ConnectPage() {
                   className="flex items-center justify-between bg-secondary p-4 rounded-lg mb-3 shadow-sm"
                 >
                   <span className="text-secondary-foreground font-medium">
-                    {searchResults.name} ({searchResults.nestId})
+                    {searchResults.username} ({searchResults.nestId})
                   </span>
                   <button
                     onClick={handleConnect}
