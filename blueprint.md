@@ -34,6 +34,10 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 
 ## Changelog
 
+### Version 1.0.5
+
+*   **Client-Side Exception Fix:** Resolved a client-side exception on the login page by removing `window.location.origin` and `suppressHydrationWarning` props. This prevents a server-side rendering error and ensures a smooth user experience.
+
 ### Version 1.0.4
 
 *   **Vercel Build Fix:** Resolved a build error on Vercel by wrapping the `ResetPasswordForm` component in a `<Suspense>` boundary on the `/reset-password` page. This fixes an issue where `useSearchParams` was being used outside of a Suspense boundary, causing the build to fail.

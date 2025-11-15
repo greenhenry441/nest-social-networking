@@ -37,13 +37,8 @@ export default function LoginPage() {
       return;
     }
 
-    const actionCodeSettings = {
-        url: `${window.location.origin}/reset-password`,
-        handleCodeInApp: true,
-    };
-
     try {
-      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+      await sendPasswordResetEmail(auth, email);
       setResetSent(true);
       setError(null);
     } catch (e: any) {
@@ -63,7 +58,6 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            suppressHydrationWarning
           />
           <div className="relative">
             <input
@@ -73,13 +67,11 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              suppressHydrationWarning
             />
             <button
               type="button"
               className="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500"
               onClick={() => setShowPassword(!showPassword)}
-              suppressHydrationWarning
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -92,7 +84,7 @@ export default function LoginPage() {
               </Link>
             </p>
             <p>
-              <button type="button" onClick={handlePasswordReset} className="font-semibold text-blue-600 hover:underline" suppressHydrationWarning>
+              <button type="button" onClick={handlePasswordReset} className="font-semibold text-blue-600 hover:underline">
                 Forgot Password?
               </button>
             </p>
@@ -102,7 +94,6 @@ export default function LoginPage() {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-            suppressHydrationWarning
           >
             Sign In
           </button>
