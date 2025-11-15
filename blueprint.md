@@ -34,6 +34,10 @@ Nest Social Networking is a modern, safe social media platform designed for teen
 
 ## Changelog
 
+### Version 1.0.6
+
+*   **Hydration Error Fix:** Resolved a client-side hydration error by preventing the application from rendering until the initial authentication check is complete. This ensures that the server-rendered UI and the client-rendered UI are in sync, preventing a common source of client-side exceptions.
+
 ### Version 1.0.5
 
 *   **Client-Side Exception Fix:** Resolved a client-side exception on the login page by removing `window.location.origin` and `suppressHydrationWarning` props. This prevents a server-side rendering error and ensures a smooth user experience.
