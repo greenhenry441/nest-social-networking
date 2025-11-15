@@ -1,13 +1,24 @@
-import { db } from '@/lib/firebase/server';
+import { db, auth } from '@/lib/firebase/server';
 import ChatInterface from '@/app/components/ChatInterface';
 import { notFound } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 export default async function ChatPage({ params }: { params: { userId: string } }) {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('session')?.value
 
-  // This is a temporary workaround to allow the build to pass.
-  // We will need to implement proper session management to get the real user ID.
-  const currentUserId = "placeholder-user-id"; 
+  if (!sessionCookie) {
+    return notFound();
+  }
 
+  let decodedToken;
+  try {
+    decodedToken = await auth.verifySessionCookie(sessionCookie, true);
+  } catch (error) {
+    return notFound();
+  }
+
+  const currentUserId = decodedToken.uid;
   const chatPartnerId = params.userId;
   const userDoc = await db.collection('users').doc(chatPartnerId).get();
 

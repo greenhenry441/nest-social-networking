@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint ."
+    "lint": "next lint"
   },
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@heroicons/react": "^2.2.0",
     "firebase": "^12.6.0",
     "firebase-admin": "^13.6.0",
     "lucide-react": "^0.378.0",

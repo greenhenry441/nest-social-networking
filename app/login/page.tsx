@@ -1,54 +1,80 @@
-      'use client'
-      
-      import { useActionState } from 'react';
-      import Link from 'next/link';
-      import { logIn } from '@/app/actions';
-      import GoogleSignInButton from '@/app/components/GoogleSignInButton';
-      
-      export default function LoginPage() {
-        const [formState, action] = useActionState(logIn, { errors: {} });
+'use client'
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase/client';
+import { createSession } from '@/app/actions';
+import GoogleSignInButton from '@/app/components/GoogleSignInButton';
+
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const idToken = await userCredential.user.getIdToken();
+      await createSession(idToken);
+      router.push('/posts');
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-md w-full mx-auto p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl bg-white dark:bg-gray-800 transform hover:scale-105 transition-transform duration-300">
-        <h1 className="text-4xl font-extrabold text-center mb-6 text-gray-800 dark:text-white">Welcome Back</h1>
-        <p className="text-center text-gray-600 dark:text-gray-300 mb-8">Sign in to continue to Nest.</p>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className="glassmorphism w-full max-w-md mx-auto p-8">
+        <h1 className="text-4xl font-extrabold text-center mb-6 text-foreground">Welcome Back</h1>
+        <p className="text-center text-foreground/80 mb-8">Sign in to continue to Nest.</p>
         
-        <form action={action}>
+        <form onSubmit={handleLogin}>
           <div className="space-y-6">
             <div>
-              <label htmlFor="email" className="text-sm font-bold text-gray-600 dark:text-gray-300 block mb-2">Email Address</label>
+              <label htmlFor="email" className="text-sm font-bold text-foreground/80 block mb-2">Email Address</label>
               <input
                 id="email"
                 type="email"
                 name="email"
                 required
-                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition"
+                className="w-full p-3 bg-input border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
                 placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                suppressHydrationWarning
               />
             </div>
             <div>
-              <label htmlFor="password_login" className="text-sm font-bold text-gray-600 dark:text-gray-300 block mb-2">Password</label>
+              <label htmlFor="password_login" className="text-sm font-bold text-foreground/80 block mb-2">Password</label>
               <input
                 id="password_login"
                 type="password"
                 name="password"
                 required
-                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition"
+                className="w-full p-3 bg-input border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
                 placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                suppressHydrationWarning
               />
             </div>
           </div>
 
-          {formState.errors._form && (
-            <div className="mt-4 p-3 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 rounded-lg">
-              {formState.errors._form.join(', ')}
+          {error && (
+            <div className="mt-4 p-3 bg-destructive/20 border border-destructive text-destructive rounded-lg">
+              {error}
             </div>
           )}
 
           <button
             type="submit"
-            className="w-full mt-8 p-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 transition-all duration-300 transform hover:translate-y-[-2px] shadow-lg"
+            className="btn w-full mt-8"
+            suppressHydrationWarning
           >
             Log In
           </button>
@@ -58,9 +84,13 @@
           <GoogleSignInButton />
         </div>
 
-        <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-          Don't have an account? <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">Sign up</Link>
-        </p>
+        <div className="mt-8 text-center text-sm text-foreground/80">
+          <p>Don&apos;t have an account?</p>
+          <div className="flex justify-center space-x-4 mt-4">
+            <Link href="/signup/parent" className="btn">Sign up as a Parent</Link>
+            <Link href="/signup/child" className="btn">Sign up as a Child</Link>
+          </div>
+        </div>
       </div>
     </div>
   );

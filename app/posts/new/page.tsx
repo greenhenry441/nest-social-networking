@@ -33,7 +33,7 @@ export default function NewPostPage() {
     setStatusMessage('Submitting...');
 
     try {
-      const result = await createPost(postContent, currentUser.uid);
+      const result = await createPost(postContent);
       if (result.success) {
         setStatusMessage('Post submitted successfully!');
         setPostContent(''); // Clear the textarea

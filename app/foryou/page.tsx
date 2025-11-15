@@ -1,6 +1,8 @@
 import { db } from '@/lib/firebase/server';
 import Post from '@/app/components/Post';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ForYouPage() {
   const postsSnapshot = await db.collection('posts').orderBy('createdAt', 'desc').get();
   const posts = postsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

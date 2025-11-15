@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { createPost } from "@/app/actions";
-import { useAuth } from "@/app/context/AuthContext"; // Import useAuth
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function CreatePostPage() {
-    const { currentUser } = useAuth(); // Get currentUser from AuthContext
+    const { currentUser } = useAuth();
     const [postContent, setPostContent] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
 
@@ -13,7 +13,7 @@ export default function CreatePostPage() {
         event.preventDefault();
         setStatusMessage('Submitting post...');
 
-        if (!currentUser || !currentUser.uid) {
+        if (!currentUser) {
             setStatusMessage("Please log in to create a post.");
             return;
         }
@@ -24,7 +24,7 @@ export default function CreatePostPage() {
         }
 
         try {
-            const result = await createPost(postContent, currentUser.uid); // Use currentUser.uid as authorId
+            const result = await createPost(postContent);
             if (result.success) {
                 setStatusMessage("Post submitted successfully!");
                 setPostContent('');
@@ -36,15 +36,6 @@ export default function CreatePostPage() {
             setStatusMessage("An unexpected error occurred.");
         }
     };
-
-    if (!currentUser) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center py-10 px-4 bg-background text-foreground">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-8 text-center drop-shadow-md">Create New Post</h1>
-                <p className="text-lg text-center text-red-500">Please log in to create a post.</p>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center py-10 px-4 bg-background text-foreground">

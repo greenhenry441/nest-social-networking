@@ -1,149 +1,105 @@
 'use client';
 
-import React, { useState } from 'react';
-import { searchUserByNestId, sendConnectionRequest } from '@/app/actions'; // Import server actions
-import { useAuth } from '@/app/context/AuthContext'; // Import useAuth hook
+import { useEffect, useState } from 'react';
+import { useAuth } from '@/app/context/AuthContext';
+import { db } from '@/lib/firebase/client';
+import { collection, query, where, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import SearchBar from '@/app/components/SearchBar';
+
+interface ConnectionRequest {
+  id: string;
+  senderId: string;
+  senderUsername: string;
+}
 
 export default function ConnectPage() {
-  const [nestIdInput, setNestIdInput] = useState('');
-  const [searchResults, setSearchResults] = useState<
-    { id: string; username: string; nestId: string } | null
-  >(null);
-  const [statusMessage, setStatusMessage] = useState('');
+  const { currentUser } = useAuth();
+  const [requests, setRequests] = useState<ConnectionRequest[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const { currentUser, loading: authLoading } = useAuth(); // Get currentUser and authLoading from AuthContext
+  useEffect(() => {
+    if (currentUser?.uid) {
+      const fetchRequests = async () => {
+        setLoading(true);
+        const q = query(
+          collection(db, 'connectionRequests'),
+          where('receiverId', '==', currentUser.uid),
+          where('status', '==', 'pending')
+        );
 
-  const handleSearch = async () => {
-    if (authLoading) {
-      setStatusMessage('Authenticating... Please wait.');
-      return;
+        const querySnapshot = await getDocs(q);
+        const newRequests: ConnectionRequest[] = [];
+
+        for (const docSnap of querySnapshot.docs) {
+          const requestData = docSnap.data();
+          const senderDoc = await getDoc(doc(db, 'users', requestData.senderId));
+          const senderUsername = senderDoc.data()?.username || 'Anonymous';
+
+          newRequests.push({
+            id: docSnap.id,
+            senderId: requestData.senderId,
+            senderUsername: senderUsername,
+          });
+        }
+
+        setRequests(newRequests);
+        setLoading(false);
+      };
+
+      fetchRequests();
     }
-    if (!currentUser || !currentUser.uid) {
-      setStatusMessage('Please log in to search for users.');
-      return;
-    }
+  }, [currentUser?.uid]);
 
-    setStatusMessage('Searching...');
-    setSearchResults(null);
+  const handleAccept = async (requestId: string) => {
+    if (!currentUser?.uid) return;
 
     try {
-      const user = await searchUserByNestId(nestIdInput);
-      if (user) {
-        setSearchResults(user as { id: string; username: string; nestId: string; });
-        setStatusMessage('');
-      } else {
-        setStatusMessage('User not found.');
-      }
+      const requestRef = doc(db, 'connectionRequests', requestId);
+      await updateDoc(requestRef, { status: 'accepted', acceptedAt: new Date() });
+      setRequests(requests.filter(req => req.id !== requestId));
     } catch (error) {
-      console.error('Error searching user:', error);
-      setStatusMessage('Error searching for user. Please try again.');
+      console.error('Error accepting request:', error);
     }
   };
 
-  const handleConnect = async () => {
-    if (!searchResults) return;
-
-    if (authLoading) {
-      setStatusMessage('Authenticating... Please wait.');
-      return;
-    }
-    if (!currentUser || !currentUser.uid) {
-      setStatusMessage('Please log in to send connection requests.');
-      return;
-    }
-
-    setStatusMessage(`Sending connection request to ${searchResults.username}...`);
+  const handleReject = async (requestId: string) => {
     try {
-      const result = await sendConnectionRequest(currentUser.uid, searchResults.id);
-      // Assuming result.success is a boolean and result.message is a string
-      if (result && result.success) {
-        setStatusMessage(`Connection request sent to ${searchResults.username}!`);
-      } else {
-        setStatusMessage(result && (result as any).message ? (result as any).message : 'Failed to send connection request.');
-      }
+      const requestRef = doc(db, 'connectionRequests', requestId);
+      await updateDoc(requestRef, { status: 'rejected' });
+      setRequests(requests.filter(req => req.id !== requestId));
     } catch (error) {
-      console.error('Error sending connection request:', error);
-      setStatusMessage('Error sending connection request. Please try again.');
+      console.error('Error rejecting request:', error);
     }
   };
-
-  if (authLoading) {
-    return (
-      <div className="min-h-screen bg-background text-foreground p-6 flex flex-col items-center justify-center">
-        <p className="text-xl text-primary">Loading authentication state...</p>
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-6 flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-primary mb-8 text-center leading-tight">
-        Connect with Friends
-      </h1>
+    <div className="max-w-4xl mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Connect with other Users</h1>
+      
+      <div className="mb-12">
+        <SearchBar />
+      </div>
 
-      {!currentUser ? (
-        <div className="bg-card p-8 rounded-xl shadow-xl border border-border w-full max-w-lg mb-8 text-center text-card-foreground">
-          <p className="text-lg font-medium">Please log in to connect with others.</p>
-        </div>
-      ) : (
-        <>
-          <div className="bg-card p-8 rounded-xl shadow-xl border border-border w-full max-w-lg mb-8">
-            <h2 className="text-2xl font-semibold mb-6 text-card-foreground">
-              Find by Nest ID
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              <input
-                type="text"
-                placeholder="Enter Nest ID"
-                value={nestIdInput}
-                onChange={(e) => setNestIdInput(e.target.value)}
-                className="flex-grow p-3 rounded-lg bg-input border border-border text-input-foreground placeholder-input-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 shadow-inner"
-                disabled={!currentUser}
-              />
-              <button
-                onClick={handleSearch}
-                className="bg-accent text-accent-foreground py-3 px-6 rounded-lg font-semibold hover:shadow-glow transition-all duration-300 transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-accent-foreground focus:ring-offset-2 focus:ring-offset-background shadow-md"
-                disabled={!currentUser}
-              >
-                Search
-              </button>
-            </div>
-
-            {statusMessage && (
-              <p className="text-center text-secondary-foreground mb-4 font-medium">
-                {statusMessage}
-              </p>
-            )}
-
-            {searchResults && (
-              <div className="mt-6 border-t border-border pt-6">
-                <h3 className="text-xl font-semibold mb-4 text-card-foreground">
-                  Search Results
-                </h3>
-                <div
-                  key={searchResults.id}
-                  className="flex items-center justify-between bg-secondary p-4 rounded-lg mb-3 shadow-sm"
-                >
-                  <span className="text-secondary-foreground font-medium">
-                    {searchResults.username} ({searchResults.nestId})
-                  </span>
-                  <button
-                    onClick={handleConnect}
-                    className="bg-tertiary text-tertiary-foreground py-2 px-4 rounded-lg font-medium hover:shadow-md transition-all duration-300 transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-tertiary-foreground focus:ring-offset-2 focus:ring-offset-secondary"
-                    disabled={!currentUser}
-                  >
-                    Connect
-                  </button>
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Incoming Requests</h2>
+        {loading ? (
+          <p>Loading requests...</p>
+        ) : requests.length > 0 ? (
+          <div className="space-y-4">
+            {requests.map(req => (
+              <div key={req.id} className="flex items-center justify-between p-4 bg-card rounded-lg shadow-md">
+                <p>Connection request from <span className="font-semibold">{req.senderUsername}</span></p>
+                <div className="flex space-x-2">
+                  <button onClick={() => handleAccept(req.id)} className="btn btn-primary">Accept</button>
+                  <button onClick={() => handleReject(req.id)} className="btn btn-secondary">Reject</button>
                 </div>
               </div>
-            )}
+            ))}
           </div>
-
-          <div className="text-center text-sm text-muted-foreground mt-auto">
-            <p>Your Nest ID: {currentUser?.uid || '[Loading Nest ID]'}</p>
-          </div>
-        </>
-      )}
+        ) : (
+          <p>No new connection requests.</p>
+        )}
+      </div>
     </div>
   );
 }

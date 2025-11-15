@@ -1,4 +1,3 @@
-/* eslint-disable */
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
@@ -7,11 +6,12 @@ import { auth, db } from '@/lib/firebase/client';
 import { doc, getDoc } from 'firebase/firestore';
 
 interface AuthContextType {
+  user: (User & { isParent?: boolean }) | null;
   currentUser: (User & { isParent?: boolean }) | null;
   loading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType>({ currentUser: null, loading: true });
+const AuthContext = createContext<AuthContextType>({ user: null, currentUser: null, loading: true });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<AuthContextType['currentUser']>(null);
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, loading }}>
+    <AuthContext.Provider value={{ user: currentUser, currentUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

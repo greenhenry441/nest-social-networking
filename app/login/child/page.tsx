@@ -2,25 +2,26 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { logIn } from '@/app/actions';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase/client';
+import { createSession } from '@/app/actions';
 
 export default function ChildLoginPage() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const result = await logIn(null, formData);
-    if (result.errors) {
-        if ('_form' in result.errors) {
-            setError((result.errors as { _form: string[] })._form.join(', '));
-        } else {
-            const fieldErrors = Object.values(result.errors).flat();
-            setError(fieldErrors.join(', '));
-        }
-    } else {
+    setError(null);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const idToken = await userCredential.user.getIdToken();
+      await createSession(idToken);
       router.push('/posts');
+    } catch (e: any) {
+      setError(e.message);
     }
   };
 
@@ -39,6 +40,8 @@ export default function ChildLoginPage() {
               type="email"
               name="email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -51,6 +54,8 @@ export default function ChildLoginPage() {
               type="password"
               name="password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
@@ -59,7 +64,7 @@ export default function ChildLoginPage() {
               className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Let's Go!
+              Let&apos;s Go!
             </button>
           </div>
         </form>
