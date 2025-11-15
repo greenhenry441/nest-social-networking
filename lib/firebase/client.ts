@@ -12,6 +12,9 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// DEBUG: Log the config to the browser console to check environment variables.
+console.log("Firebase Config:", firebaseConfig);
+
 // Initialize Firebase
 let app: FirebaseApp;
 try {
