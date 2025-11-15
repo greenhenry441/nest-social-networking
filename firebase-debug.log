@@ -1,0 +1,164 @@
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:26.758Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:26.760Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[debug] [2025-11-15T13:46:26.776Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.777Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.778Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.782Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.782Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.786Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.786Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.787Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.787Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.788Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.790Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.790Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.791Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.792Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.792Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.794Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.795Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.795Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.795Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.795Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.810Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.810Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.810Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.811Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.811Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.814Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.814Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.814Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.815Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.815Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.818Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:26.818Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[debug] [2025-11-15T13:46:26.820Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.820Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.820Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.820Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.820Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.822Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.823Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.823Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.823Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.823Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.825Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.826Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.826Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.826Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.826Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.830Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.830Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.830Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.830Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.831Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.837Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.837Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.837Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.838Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.838Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:26.841Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.841Z] Checked if tokens are valid: false, expires at: 1763172698801
+[debug] [2025-11-15T13:46:26.842Z] > refreshing access token with scopes: []
+[debug] [2025-11-15T13:46:26.842Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-11-15T13:46:26.842Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.034Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.034Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.070Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.071Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.117Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.117Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.135Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.135Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.150Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.150Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.164Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com [none]
+[debug] [2025-11-15T13:46:27.164Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.177Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.178Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.191Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.192Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.233Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.237Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.265Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.266Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.275Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.275Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.289Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.289Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.299Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.299Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.316Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.316Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.323Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.323Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.340Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.340Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.367Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.367Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.390Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.390Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.422Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.422Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.439Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.440Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.464Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.464Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.486Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com [none]
+[debug] [2025-11-15T13:46:27.486Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.487Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-11-15T13:46:27.487Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-11-15T13:46:27.499Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com [none]
+[debug] [2025-11-15T13:46:27.499Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com x-goog-quota-user=projects/nest-social-networking
+[debug] [2025-11-15T13:46:27.519Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com 200
+[debug] [2025-11-15T13:46:27.519Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.533Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com 403
+[debug] [2025-11-15T13:46:27.534Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com [omitted]
+[debug] [2025-11-15T13:46:27.539Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-11-15T13:46:27.540Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.567Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com 200
+[debug] [2025-11-15T13:46:27.567Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.595Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com 200
+[debug] [2025-11-15T13:46:27.595Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseremoteconfig.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.638Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com 200
+[debug] [2025-11-15T13:46:27.638Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.668Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com 200
+[debug] [2025-11-15T13:46:27.670Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/identitytoolkit.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.689Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com 403
+[debug] [2025-11-15T13:46:27.692Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseio.com [omitted]
+[debug] [2025-11-15T13:46:27.699Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-11-15T13:46:27.701Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.738Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com 200
+[debug] [2025-11-15T13:46:27.739Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com [omitted]
+[debug] [2025-11-15T13:46:27.769Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com 200
+[debug] [2025-11-15T13:46:27.770Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/fcm.googleapis.com [omitted]
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.795Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com 200
+[debug] [2025-11-15T13:46:27.795Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/nest-social-networking/services/storage.googleapis.com [omitted]
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.810Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.810Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.812Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.813Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.863Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.864Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.868Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.869Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.937Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.938Z] > authorizing via signed-in user (greenhenry441@gmail.com)
+[error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
+[debug] [2025-11-15T13:46:27.944Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-11-15T13:46:27.945Z] > authorizing via signed-in user (greenhenry441@gmail.com)

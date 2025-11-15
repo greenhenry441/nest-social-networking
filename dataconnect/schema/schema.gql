@@ -1,0 +1,51 @@
+type User @table {
+  username: String!
+  email: String!
+  passwordHash: String!
+  role: String!
+  createdAt: Timestamp!
+  displayName: String
+  profilePictureUrl: String
+  bio: String
+  dateOfBirth: Date
+  parentId: UUID
+}
+
+type Post @table {
+  content: String!
+  postType: String!
+  createdAt: Timestamp!
+  imageUrl: String
+  videoUrl: String
+  caption: String
+  author: User
+}
+
+type Comment @table {
+  content: String!
+  createdAt: Timestamp!
+  author: User
+  post: Post
+}
+
+type Friendship @table(key: ["initiator", "recipient"]) {
+  initiator: User!
+  recipient: User!
+  status: String!
+  createdAt: Timestamp!
+}
+
+type ChatGroup @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+  creator: User
+}
+
+type Message @table {
+  content: String!
+  createdAt: Timestamp!
+  sender: User
+  chatGroup: ChatGroup
+  recipient: User
+}

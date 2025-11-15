@@ -1,0 +1,30 @@
+mutation CreateUser($username: String!, $email: String!, $passwordHash: String!, $role: String!) @auth(level: PUBLIC, insecureReason: "New users must be able to create accounts") {
+  user_insert(data: {username: $username, email: $email, passwordHash: $passwordHash, role: $role, createdAt_expr: "request.time", id_expr: "uuidV4()"})
+}
+
+query GetPostsByAuthor($authorId: UUID!) @auth(level: USER) {
+  posts(where: {authorId: {eq: $authorId}}) {
+    id
+    content
+    createdAt
+  }
+}
+
+mutation CreateComment($postId: UUID!, $content: String!) @auth(level: USER) {
+  comment_insert(data: {postId: $postId, content: $content, authorId_expr: "auth.uid", createdAt_expr: "request.time", id_expr: "uuidV4()"})
+}
+
+query GetFriendshipsForUser @auth(level: USER) {
+  friendships(where: {_or: [{initiatorId: {eq_expr: "auth.uid"}}, {recipientId: {eq_expr: "auth.uid"}}]}) {
+    initiator {
+      id
+      username
+    }
+    recipient {
+      id
+      username
+    }
+    status
+    createdAt
+  }
+}

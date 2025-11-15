@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": ".next",
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "server"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions"
+  },
+  "dataconnect":{
+    "source": "dataconnect"
+  }
+}
