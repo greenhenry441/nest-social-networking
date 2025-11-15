@@ -28,13 +28,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="glassmorphism w-full max-w-md mx-auto p-8">
-        <h1 className="text-4xl font-extrabold text-center mb-6 text-foreground">Welcome Back</h1>
-        <p className="text-center text-foreground/80 mb-8">Sign in to continue to Nest.</p>
-        
-        <form onSubmit={handleLogin}>
-          <div className="space-y-6">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl w-full bg-card shadow-2xl rounded-2xl overflow-hidden">
+        <div className="p-8 md:p-12 flex flex-col justify-center">
+          <h1 className="text-5xl font-extrabold text-foreground mb-4">Welcome Back</h1>
+          <p className="text-foreground/70 mb-8">Sign in to reconnect with your Nest.</p>
+          
+          <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label htmlFor="email" className="text-sm font-bold text-foreground/80 block mb-2">Email Address</label>
               <input
@@ -42,7 +42,7 @@ export default function LoginPage() {
                 type="email"
                 name="email"
                 required
-                className="w-full p-3 bg-input border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
+                className="w-full p-4 bg-input border-2 border-border rounded-lg focus:ring-4 focus:ring-primary/30 focus:border-primary text-foreground transition duration-300"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,40 +56,50 @@ export default function LoginPage() {
                 type="password"
                 name="password"
                 required
-                className="w-full p-3 bg-input border-border rounded-lg focus:ring-2 focus:ring-primary text-foreground transition"
+                className="w-full p-4 bg-input border-2 border-border rounded-lg focus:ring-4 focus:ring-primary/30 focus:border-primary text-foreground transition duration-300"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 suppressHydrationWarning
               />
             </div>
-          </div>
 
-          {error && (
-            <div className="mt-4 p-3 bg-destructive/20 border border-destructive text-destructive rounded-lg">
-              {error}
+            {error && (
+              <div className="mt-4 p-4 bg-destructive/10 border-l-4 border-destructive text-destructive-foreground rounded-r-lg">
+                <p className="font-semibold">Error</p>
+                <p>{error}</p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-primary text-primary-foreground font-bold py-4 px-4 rounded-lg hover:bg-primary/90 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 shadow-lg"
+              suppressHydrationWarning
+            >
+              Log In
+            </button>
+          </form>
+          
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border"></span>
             </div>
-          )}
-
-          <button
-            type="submit"
-            className="btn w-full mt-8"
-            suppressHydrationWarning
-          >
-            Log In
-          </button>
-        </form>
-        
-        <div className="mt-6 text-center">
-          <GoogleSignInButton />
-        </div>
-
-        <div className="mt-8 text-center text-sm text-foreground/80">
-          <p>Don&apos;t have an account?</p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <Link href="/signup/parent" className="btn">Sign up as a Parent</Link>
-            <Link href="/signup/child" className="btn">Sign up as a Child</Link>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-foreground/60">Or continue with</span>
+            </div>
           </div>
+
+          <GoogleSignInButton />
+
+          <div className="mt-8 text-center text-sm text-foreground/70">
+            <p>Don&apos;t have an account?{' '} 
+              <Link href="/signup" className="font-semibold text-primary hover:underline">
+                Sign up
+              </Link>
+            </p>
+          </div>
+        </div>
+        <div className="hidden md:block bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6538b3423b93?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}>
         </div>
       </div>
     </div>
